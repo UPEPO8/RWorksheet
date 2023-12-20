@@ -1,0 +1,197 @@
+---
+title: "RWorksheet_Tubat#4c"
+output:
+  pdf_document: default
+  html_document: default
+date: "2023-11-21"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r 1a}
+mpgDataset <- read.csv(file = "/cloud/project/worksheet#4/mpg.csv")
+
+
+
+```
+```{r 1b}
+str(mpgDataset)
+
+#4b. The variables that are categorical are: manufacturer, model, trans, drive, class, fl, year, cyl
+
+```
+
+```{r 1c}
+#The variables that are continuous are displ, cty, hwy.
+class(mpgDataset$hwy)
+```
+
+```{r 2a}
+uniqueManufacturer <- mpgDataset$manufacturer
+numCars <- table(mpgDataset$manufacturer)
+numCars
+uniqueModels <- unique(mpgDataset$model)
+uniqueModels
+
+library(ggplot2)
+```
+```{r 2b}
+barplot(numCars, col = rainbow(18), xlab = "Manufacturer", main = "Manufacturer Plot")
+qplot(manufacturer, data = mpg, geom = "bar", fill = manufacturer)
+ggplot(mpg, aes(manufacturer), fill = manufacturer)+
+  geom_bar(fill = rainbow(15))
+```
+```{r 2ab}
+groupedManufacturer <- group_by(mpgDataset, manufacturer)
+summarize(groupedManufacturer)
+ggplot(mpg,aes(x =model, y = manufacturer)) +
+geom_point(color = "blue")
+
+#It shows a scatterplot with the manufacturer on the y axis and model type at the x axis
+
+#2b. 
+#The data shown in this scatterplot is not useful, In order to make it more useful I would put the manufacturer on the X axis and the Y axis I would put the number of cars the manufacturer has on the dataset.
+```
+
+
+```{r 3}
+newMpgDF <- data.frame(newModel, newYear)
+newMpgDF
+newModel <- head(mpg$model, 20)
+newModel
+newYear <- head(mpg$year, 20)
+newYear
+ggplot(newMpgDF,aes(newModel, newYear))+ 
+  geom_point(color = rainbow(20))
+
+
+```
+
+
+```{r 4}
+library(dplyr)
+group<- mpgDataset %>%
+  group_by(model)
+
+summarise(group)
+  
+```
+
+
+
+
+```{r 5a}
+ggplot(mpg, aes(displ,cyl))+
+  geom_point()
+
+#The higher number of cylinders, the higher the displacement.
+
+```
+
+```{r 6.1}
+
+ggplot(mpg, aes(cyl,hwy))+
+  geom_point()
+
+
+
+#The result is that the lower the number of cylinders, the higher the highway mileage it has.
+```
+
+
+
+```{r 6.2a}
+trafficDS <- read.csv("/cloud/project/worksheet#4/traffic.csv")
+
+dim(trafficDS)
+
+#The traffic dataset has 48120 number of observations
+
+
+
+```
+```{r 6.2b}
+ 
+gpJunction <- group_by(trafficDS, Junction)
+gpJunction
+
+summarise(gpJunction)
+
+
+
+```
+
+```{r 6.2c}
+ggplot(trafficDS, aes(x = DateTime, y = Vehicles, group = Junction, color = as.factor(Junction))) +
+  geom_line() +
+  labs(title = "Junction-wise Traffic Plot", x = "Date and Time", y = "Number of Vehicles")
+
+```
+
+```{r number7}
+alexaData <- read_xlsx("alexa_file.xlsx")
+alexaData
+
+
+```
+```{r number7a}
+
+dim(alexaData)
+#Alexa data has 3150 number of observations, and 5 columns.
+```
+
+```{r number7b}
+variations <- alexaData %>%
+  group_by(variation) %>%
+  summarise(totalCount = n())
+  
+variations
+  
+
+
+```
+
+```{r number7c}
+ggplot(variations, aes(x = variation, y = totalCount)) +
+  geom_bar(stat = "identity", fill = rainbow(16)) +
+  labs(title = "Count of Variations", x = "Variation", y = "Total Count")
+
+```
+
+```{r number 7d}
+
+alexaData$date <- as.Date(alexaData$date, format ="%d-%b-%y")
+
+reviewDate <- alexaData %>%
+  group_by(date) %>%
+  summarise(totalReviews = n())
+
+ggplot(reviewDate, aes(x = date, y = totalReviews)) +
+  geom_line(color = "blue") +
+  labs(title = "Number of Verified Reviews Over Time",
+       x = "Date",
+       y = "Total Verified Reviews")
+```
+```{r number7e}
+alexaData$rating <- as.numeric(alexaData$rating)
+
+ratingsVariation <- alexaData %>%
+  group_by(variation) %>%
+  summarise(average_rating = mean(rating, na.rm = TRUE))
+
+ggplot(ratingsVariation, aes(x = variation, y = average_rating, fill = variation)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Relationship Between Variations and   Ratings", x = "Variation", y = "Average Rating")
+
+#The variation with the highest ratings is the Walnut Finish.
+```
+
+
+
+
+
+
+
+

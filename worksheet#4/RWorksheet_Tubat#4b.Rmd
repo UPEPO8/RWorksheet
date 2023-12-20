@@ -1,0 +1,200 @@
+---
+title: "Untitled"
+output: pdf_document
+date: "2023-11-07"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r 1}
+#1.
+matrixA <- matrix(0, nrow = 5, ncol = 5)
+
+
+for (i in 1:5) {
+  for (j in 1:5) {
+    matrixA[i, j] <- abs(i - j)
+  }
+}
+
+print(matrixA)
+```
+
+```{r 2}
+#2. 
+number <- 5
+for (i in 1:number) {
+  for (j in 1:i) {
+    cat('"*"')
+  }
+  cat("\n")
+}
+
+```
+
+```{r 3}
+#3. 
+##start_number <- as.numeric(readline(prompt = "Input starting number:  "))
+start_number <- 1
+
+a <- 0
+b <- 1
+
+repeat {
+  if (a >= start_number) {
+    cat(a, " ")
+  }
+  c <- a + b
+  a <- b
+  b <- c
+  if (a > 500) {
+    break
+  }
+}
+
+```
+```{r 4}
+#Number 4a.
+df <- read.csv(file = "/cloud/project/worksheet#4/Shoe Size.csv", header = TRUE)
+head(df)
+
+```
+```{r}
+#Number 4b.
+countGender <- table(df$Gender)
+countGender
+
+#There are 14 males and 14 females.
+
+```
+
+
+```{r}
+#Number 4c.
+barplot(countGender, main = "Male and Female Comparison", col = c("blue", "red"))
+
+```
+```{r}
+#5a.
+Food <- 60
+Electricity <- 10
+Savings <- 5
+Miscellaneous <- 25
+df2 <- data.frame(Food, Electricity, Savings, Miscellaneous)
+
+expenses <- unlist(df2)
+pie(expenses)
+
+
+```
+```{r number6}
+#Number 6.
+data(iris)
+
+
+```
+```{r number6a}
+#Number 6a.
+str(iris)
+```
+```{r number6b}
+#Number 6b.
+irisResults <- c(mean(iris$Sepal.Length),mean(iris$Sepal.Width), mean(iris$Petal.Length),mean(iris$Petal.Width))
+irisResults
+```
+```{r}
+#Number 6c.
+countSpecies <- table(iris$Species)
+countSpecies
+
+pie(countSpecies, c("Setosa", "Versicolor", "Virginica", edges =200), main = "Species Pie Chart",col = c("red","blue","green"))
+legend(x = -2.5,y = 1, legend = c("Setosa", "Versicolor", "Virginica"), col = c("red","blue","green"),pch = c(19,19,19))
+
+```
+```{r}
+#Number 6d.
+setosa <- iris[iris$Species == "setosa", ]
+versicolor <- iris[iris$Species == "versicolor", ]
+virginica <- iris[iris$Species == "virginica", ]
+tail(setosa)
+tail(versicolor)
+tail(virginica)
+
+```
+```{r}
+#Number 6e.
+
+plot(iris$Sepal.Length, iris$Sepal.Width, pch = as.integer(iris$Species), col = as.integer(iris$Species) + 1, xlab = "Sepal Length", ylab = "Sepal Width", main = "Iris Dataset Sepal Length and Width")
+
+
+```
+```{r number6f}
+#Number 6f.
+#The setosa species has the longest width of the 3 of the species and has the shortest length, the versicolor however on average, is the 2nd longest and 2nd shortest, which makes it the species who is in the middle, the virginica has the longest sepal length and has the same width as the versicolor.
+
+```
+
+
+```{r}
+library(readxl)
+alexaFile <- read_excel("/cloud/project/worksheet#4/alexa_file.xlsx")
+alexaFile
+
+
+```
+```{r}
+alexaFile$variation <- gsub("Black  Dot", "Black Dot",
+gsub("Black  Plus", "Black Plus", 
+     gsub("Black  Show", "Black Show",
+     gsub("Black  Spot", "Black Spot",
+     alexaFile$variation))))
+
+alexaFile$variation <- gsub("White  Dot", "White Dot", gsub("White  Plus", "White Plus", gsub("White  Show", "White Show", gsub("White  Spot", "White Spot", alexaFile$variation))))
+table(alexaFile$variation)
+
+
+
+```
+```{r}
+knitr::include_graphics("/cloud/project/worksheet#4/snippet.png")
+
+
+```
+
+```{r Number7b}
+#Number 7b.
+alexaVarTable <- table(alexaFile$variation)
+saveRDS(alexaVarTable, file = "variations.RData")
+
+ 
+
+```
+```{r Number7c}
+barplot(alexaVarTable, main = "All Variants", col = rainbow(16), cex.names = 0.5, space = 1, xlab = "Variants", ylab = "Total Numbers")
+
+```
+
+
+
+```{r Number7d}
+blackVariants <- alexaVarTable[1:5]
+blackVariants
+whiteVariants <- alexaVarTable[12:16]
+whiteVariants
+
+
+par(mfrow = c(1,2))
+barplot(blackVariants, main = "Black Variants", col = c("black", "deeppink", "green", "blue", "cyan"), ylab = "Total Numbers", xlab = "Variants", width = c(0.05, 0.05,0.05,0.05,0.05), cex.names = .45, space = 1.2)
+
+barplot(whiteVariants, main = "White Variants", col = c("black", "deeppink", "green", "blue", "cyan"), ylab = "Total Numbers", xlab = "Variants", width = c(0.05, 0.05,0.05,0.05,0.05), cex.names = .45, space = 1.2)
+
+
+
+
+```
+
+
+
