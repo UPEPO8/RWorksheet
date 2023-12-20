@@ -1,0 +1,219 @@
+---
+title: "RWorksheet(Markdown)"
+output: html_document
+date: "2023-09-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+sys.source("/cloud/project/RWorksheet_Tubat#2.R", envir = knitr::knit_global())
+```
+
+```{r number1}
+#1a. Create a vector using : operator
+operator <- (-5:5)
+operator
+
+#1b. x <- 1:7. What will be the value of x?
+x <- 1:7
+x
+
+```
+
+```{r number2}
+#2.Create a vector using seq() function
+#2a. seq(1, 3, by=0.2)
+stepVector <- seq(1,3,by = 0.2)
+stepVector
+
+#The output is a sequence of numbers from 1 to 3 which is incremented by 0.2
+```
+
+```{r number3}
+#3.
+workerList <- list(34, 28, 22, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27,
+                   22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 43, 53, 41, 51, 35,
+                   24,33, 41, 53, 40, 18, 44, 38, 41, 48, 27, 39, 19, 30, 61, 54, 58, 26,
+                   18)
+#3a. Access 3rd element, what is the value?
+workerList[3]
+
+#3b. Access 2nd and 4th element, what are the values?
+workerList2 <- workerList[c(2,4)]
+workerList2
+
+#3c. Access all but the 4th and 12th element is not included. Write the R script and its output.
+removeWorkerList <- workerList[-c(4,12)]
+removeWorkerList
+
+
+```
+
+```{r number4}
+#4.*Create a vector x <- c("first"=3, "second"=0, "third"=9). Then named the vector, names(x).
+#renamed the object x2 because we have an object x in the previous numbers.
+x2 <- c("first"=3, "second"=0, "third"=9)
+vectorx2 <- names(x2)
+
+#4a. Print the results. Then access x[c("first", "third")]. Describe the output.
+vectorx2
+#4a. the vector x displayed the output, [1] "first"  "second" "third". It didn't print the 3, 0, and 9.
+
+#4b. Write the code and its output.
+firstThird <- x2[c("first", "third")]
+firstThird
+
+```
+
+```{r number5}
+#5. Create a sequence x from -3:2.
+#Created an object called x3 so it wont conflict with other objects called x in the previous numbers.
+x3 <- -3:2
+#5a. a. Modify 2nd element and change it to 0;
+#x[2] <- 0
+#x
+
+#5a.The 2nd index in the vector x3 which is originally -2, was replaced by the number 0, after we modified
+#the x3 vector.
+
+#5b.Modify 2nd element and change it to 0;
+x3[2] <- 0
+x3
+```
+
+
+```{r number6}
+#6a. Create a data frame for month, price per liter (php) and purchase-quantity (liter). Write the R scripts and its output.
+fueldf = data.frame(Month <- c("Jan", "Feb", "March", "April", "May", "June"),
+                    liter <- c(52.50, 57.25, 60.00, 65.00, 74.25, 54),
+                    purchase <- c(25, 30, 40, 50, 10 ,45))
+colnames(fueldf) <- c("Month", "Price per Liter (PhP)", "Purchase-quantity(Liters)")
+
+
+
+
+#6b. What is the average fuel expenditure of Mr. Cruz from Jan to June? Note: Use ‘weighted.mean(liter,purchase)‘. Write the R scripts and its output.
+wted_mean <- weighted.mean(liter,purchase)
+wted_mean
+#6b. 59.2625 is the weighted mean.
+
+```
+
+```{r number7}
+# 7a. Type “rivers” in your R console.
+# Create a vector data with 7
+# elements, containing the number of elements (length)
+# in rivers, their sum (sum), mean (mean),
+# median(median), variance(var), standard deviation(sd),
+# minimum (min) and maximum (max).
+# data <- c(length(rivers), sum(rivers), mean(rivers), median(rivers), var(rivers),
+# sd(rivers), min(rivers), max(rivers))
+
+#7b.
+#The length is 141
+#The sum is 83357.0000
+#The mean is 591.1844
+#The median is 425.0000
+#The variance is 243908.4086
+#The standard deviation is 493.8709
+#The min is 135.0000
+#The max is 3710.0000
+
+#7c. 
+data <- c(length(rivers), sum(rivers), mean(rivers), median(rivers), var(rivers),
+          sd(rivers), min(rivers), max(rivers))
+data
+
+
+
+```
+
+```{r number8}
+# 8. The table below gives the 25 most powerful celebrities and their annual pay as ranked
+# by the editions of Forbes magazine and as listed on the Forbes.com website.
+
+#8a.
+forbesMagazine <- data.frame(power_ranking <- c(1:25),
+                             celebrity_name <- c("Tom Cruse", "Rolling Stones", "Oprah Winfrey", "U2", "Tiger Woods", "Steven Spielberg"
+                                                 ,"Howard Stern", "50 Cent", "Cast of the Sopranos", "Dan Brown", "Bruce Springsteen", "Donald Trump",
+                                                 "Muhammad Ali", "Paul McCartney", "George Lucas", "Elton John", "David Letterman", "Phil Mickelson",
+                                                "J.K Rowling", "Bradd Pitt", "Peter Jackson", "Dr. Phil McGraw", "Jay Lenon", "Celine Dion", "Kobe Bryant"),
+                             pay <- c(67, 90, 225, 110, 90, 332, 302, 41, 52, 88, 55, 44 , 55, 40, 233, 34, 40, 47, 75, 25, 39, 45, 32, 40,31))
+colnames(forbesMagazine) <- c("Power Ranking", "Celebrity Name", "Pay")
+forbesMagazine
+
+#8b. Modify the power ranking and pay of J.K. Rowling.
+# Change power ranking to 15 and pay to 90. Write the R scripts and its output.
+# Replace the names
+forbesMagazine$`Celebrity Name`[19] <- "George Lucas"
+forbesMagazine$`Celebrity Name`[15] <- "J.K. Rowling"
+
+# Replace the pays
+forbesMagazine$Pay[19] <- 233
+forbesMagazine$Pay[15] <- 90
+forbesMagazine
+
+#8c. Create an excel file from the table above and save it as csv file(PowerRanking). Import the csv file into the RStudio. What is the R script?
+powerRanking <- read.csv('PowerRanking.csv', header = TRUE, sep = ',')
+
+#8d.Access the rows 10 to 20 and save it as Ranks.RData. Write the R script and its output.
+access10to20 <- forbesMagazine[c(10:20),]
+access10to20
+save(access10to20, file  = "Ranks.RData")
+forbesMagazine <- access10to20
+forbesMagazine
+
+#8e. Describe its output
+#The output of the dataframe is from the power ranking, celebrity name and pay from 10 to 20. 
+
+
+
+```
+
+```{r number9 }
+#9. Download the Hotels-Vienna https://tinyurl.com/Hotels-Vienna
+
+#9a.
+library(readxl)
+hotels_vienna <- read_excel('/cloud/project/hotels-vienna.xlsx')
+
+#9b. How many dimensions does the dataset have? What is the R script? WHat is its output?
+dimensions <- dim(hotels_vienna)
+dimensions
+#9b. The dataset has 428 rows and 24 columns.
+
+#9c. Select columns country, neighbourhood, price, stars, accomodation_type, and ratings. Write the R script.
+selected_columns <- hotels_vienna[1:482,c(1,6,7,9,22,24)]
+new_hotels_vienna <- data.frame(selected_columns)
+
+#9d. Save the data as **new.RData to your RStudio. Write the R script.
+save(selected_columns, file = "new.RData")
+
+#9e.
+new <- load("/cloud/project/new.RData")
+head(new_hotels_vienna)
+tail(new_hotels_vienna)
+
+```
+
+```{r number10}
+#10. Create a list of ten (10) vegetables you ate during your lifetime. If none, just list down.
+
+#10a. Write the R scripts and its output.
+vegetableList <- list("Potato", "Tomato", "Cabbage", "Carrot", "Mushroom", "Pumpkin", "Onion", "Broccoli",
+                      "Cauliflower", "Banana Flower")
+vegetableList
+
+#10b. Add 2 additional vegetables after the last vegetables in the list. What is the R script and its output?
+first_append <- append(vegetableList, list("Corn", "Beetroot"), after = length(vegetableList))
+first_append
+
+#10c. Add 4 additional vegetables after index 5. How many datapoints does your vegetable list have? What is the R script and its output?
+second_append <- append(first_append, list("Asparagus", "Bell Pepper", "Brussel Sprouts", "Cassava"), after = 5)
+second_append
+
+#10d. Remove the vegetables in index 5, 10, and 15. How many vegetables were left? Write the codes and its output.
+newVegetableList <- second_append
+removeVegetable <- newVegetableList[-c(5,10,15)]
+removeVegetable
+```
